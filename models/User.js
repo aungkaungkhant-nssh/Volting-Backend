@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    phone:{
-        type:Number,
+    email:{
+        type:String,
         required:true,
         uniqued:true
     },
@@ -29,7 +29,11 @@ const userSchema = new mongoose.Schema({
             },
        }
          
-    ]
+    ],
+    verified:{
+        type:Boolean,
+        default:false
+    }
 })
 userSchema.pre("save",async function(){
     const salt = await bcypt.genSalt(10);
@@ -45,8 +49,9 @@ const User = mongoose.model("User",userSchema);
 function userValidate (user){
    const schema =  Joi.object({
         name:Joi.string().required(),
-        phone:Joi.number().required(),
-        password:Joi.string().required()
+        email:Joi.string().required(),
+        password:Joi.string().required(),
+        verified:Joi.boolean().default(false)
     })
     return schema.validate(user)
 }
