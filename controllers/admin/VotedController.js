@@ -42,8 +42,14 @@ exports.getVoted = async(req,res)=>{
 }
 exports.updateVoted = async(req,res)=>{
     try{
-        const {name,rollNo,categoryId} = req.body
-        let voted = await Voted.updateOne({_id:req.params.id},{$set:{name,rollNo,categoryId}})
+        const {name,rollNo,categoryId,image} = req.body;
+        let voted;
+        if(image){
+            voted = await Voted.updateOne({_id:req.params.id},{$set:{name,rollNo,categoryId,image}})
+        }else{
+             voted = await Voted.updateOne({_id:req.params.id},{$set:{name,rollNo,categoryId}})
+        }
+        
         voted = await Voted.findById(req.params.id).populate("categoryId")
         res.status(200).json({message:"Update Voted Successfully",voted})
     }catch(err){
