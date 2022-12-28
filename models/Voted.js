@@ -18,6 +18,10 @@ const votedSchema = new mongoose.Schema({
     voteCount:{
         type:Number,
         default:0
+    },
+    image:{
+        type:String,
+        default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     }
 })
 
@@ -27,7 +31,8 @@ function VotedValidate(voted){
     const schema = Joi.object({
         name:Joi.string().required(),
         rollNo:Joi.string().required(),
-        categoryId:Joi.objectId().required()
+        categoryId:Joi.objectId().required(),
+        image:Joi.string().default("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg")
     })
     return schema.validate(voted)
 }
