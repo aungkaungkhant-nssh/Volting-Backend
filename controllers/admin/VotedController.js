@@ -3,7 +3,7 @@ const {User} = require("../../models/User");
 exports.addVoted = async(req,res)=>{
     const {error} =  validate(req.body);
     if(error) return res.status(402).json({message:error.details[0].message});
-    const {name,rollNo,categoryId} = req.body;
+    const {name,rollNo,categoryId,image} = req.body;
     try{
         let voted=await Voted.create({name,rollNo,categoryId,image});
         res.status(201).json({message:"Voted Created Successfully",voted});
