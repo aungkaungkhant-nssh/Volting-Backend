@@ -32,7 +32,7 @@ function VotedValidate(voted){
         name:Joi.string().required(),
         rollNo:Joi.string().required(),
         categoryId:Joi.objectId().required(),
-        
+        image:Joi.string().default("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg")
     })
     return schema.validate(voted)
 }
